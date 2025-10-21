@@ -97,7 +97,7 @@ def format_tool_call(tool_name: str, tool_input: dict) -> str:
     """Format a tool call as markdown."""
     input_str = json.dumps(tool_input, indent=2)
     return f"""<details>
-<summary>Tool -> {tool_name}</summary>
+<summary>Tool -> `{tool_name}`</summary>
 
 ```json
 {input_str}
