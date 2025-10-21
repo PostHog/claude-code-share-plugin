@@ -4,12 +4,12 @@ A Claude Code plugin that saves and shares your coding sessions to GitHub reposi
 
 ## Features
 
-- 📝 Converts JSONL session logs to clean, readable markdown
-- 🔄 Automatically commits and pushes to any GitHub repository
-- 👤 Organizes sessions by username in configurable directory structure
-- 🎯 Supports optional session descriptions
-- 🔧 Collapses tool usage details by default for cleaner reading
-- ⚙️ Fully configurable via environment variables
+- Converts JSONL session logs to clean, readable markdown
+- Automatically commits and pushes to any GitHub repository
+- Organizes sessions by username in configurable directory structure
+- Supports optional session descriptions
+- Collapses tool usage details by default for cleaner reading
+- Fully configurable via environment variables
 
 ## Prerequisites
 
@@ -30,10 +30,10 @@ curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/ma
 Replace `your-username/sessions` with your sessions repository.
 
 **What gets auto-detected:**
-- ✅ GitHub username (from `gh` CLI)
-- ✅ Current session log (from `~/.claude/projects/` based on working directory)
-- ✅ Branch (defaults to `main`)
-- ✅ Path (defaults to `sessions`)
+- GitHub username (from `gh` CLI)
+- Current session log (from `~/.claude/projects/` based on working directory)
+- Branch (defaults to `main`)
+- Path (defaults to `sessions`)
 
 **Configuration is saved automatically** to `~/.claude/share-plugin-config.json` during installation - no environment variables needed!
 
@@ -147,16 +147,16 @@ your-sessions-repo/
 
 ---
 
-## 👤 User
+## User
 
 Can you help me fix the authentication bug?
 
-## 🤖 Assistant
+## Claude
 
 I'll help you investigate the authentication issue. Let me first check the relevant files.
 
 <details>
-<summary>🔧 Tool: read_any_files</summary>
+<summary>Tool: read_any_files</summary>
 
 ```json
 {
@@ -230,8 +230,8 @@ To modify the plugin:
 1. Reads the current Claude Code session log (JSONL format)
 2. Parses each message (user/assistant/tool calls)
 3. Converts to readable markdown with:
-   - User messages with 👤 prefix
-   - Assistant responses with 🤖 prefix
+   - User messages
+   - Claude responses
    - Tool usage in collapsible `<details>` sections
 4. Clones target repo to `/tmp/claude-share-temp`
 5. Creates session file with timestamp and description
