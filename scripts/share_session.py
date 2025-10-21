@@ -129,6 +129,14 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
 
                 if role == 'user':
                     content = message.get('content', '')
+
+                    # Skip /share command messages
+                    if isinstance(content, str) and (
+                        content.startswith('/share') or
+                        'share:share is running' in content or
+                        'Share Session Command' in content
+                    ):
+                        continue
                     if isinstance(content, list):
                         # Handle multipart content
                         for item in content:
@@ -149,6 +157,14 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                 
                 elif role == 'assistant':
                     content = message.get('content', [])
+
+                    # Skip assistant responses about the share command
+                    if isinstance(content, str) and (
+                        'share the current Claude Code session' in content.lower() or
+                        'share script' in content.lower()
+                    ):
+                        continue
+
                     if isinstance(content, str):
                         markdown_lines.extend([
                             "## 🤖 Assistant",
