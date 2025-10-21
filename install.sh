@@ -1,13 +1,62 @@
 #!/bin/bash
 # One-liner installer for Claude Code Share Plugin
-# Usage: curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s owner/repo
+# Usage: bash install.sh --claude-share-repo owner/repo
+# Or: bash install.sh owner/repo (positional)
 
 set -e
 
-# Get repo from first argument if provided
-if [[ -n "$1" ]]; then
-    export CLAUDE_SHARE_REPO="$1"
-fi
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --claude-share-repo)
+            export CLAUDE_SHARE_REPO="$2"
+            shift 2
+            ;;
+        --claude-share-username)
+            export CLAUDE_SHARE_USERNAME="$2"
+            shift 2
+            ;;
+        --claude-share-branch)
+            export CLAUDE_SHARE_BRANCH="$2"
+            shift 2
+            ;;
+        --claude-share-base-path)
+            export CLAUDE_SHARE_BASE_PATH="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "Claude Code Share Plugin Installer"
+            echo ""
+            echo "Usage:"
+            echo "  bash install.sh --claude-share-repo owner/repo"
+            echo "  bash install.sh owner/repo"
+            echo ""
+            echo "Options:"
+            echo "  --claude-share-repo REPO       Repository for sessions (required)"
+            echo "  --claude-share-username USER   GitHub username (auto-detected if not set)"
+            echo "  --claude-share-branch BRANCH   Branch to push to (default: main)"
+            echo "  --claude-share-base-path PATH  Base path in repo (default: sessions)"
+            echo "  --help, -h                     Show this help message"
+            echo ""
+            echo "Examples:"
+            echo "  bash install.sh --claude-share-repo myuser/sessions"
+            echo "  bash install.sh posthog/claude-sessions"
+            exit 0
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+        *)
+            # Positional argument - treat as repo
+            if [[ -z "$CLAUDE_SHARE_REPO" ]]; then
+                export CLAUDE_SHARE_REPO="$1"
+            fi
+            shift
+            ;;
+    esac
+done
 
 echo "🚀 Installing Claude Code Share Plugin..."
 echo ""
