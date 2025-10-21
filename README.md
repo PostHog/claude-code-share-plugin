@@ -60,7 +60,7 @@ In Claude Code:
 
 ```
 /plugin marketplace add ~/claude-plugins/claude-code-share-plugin
-/plugin install share-sessions@claude-code-share-plugin
+/plugin install share@claude-code-share-plugin
 ```
 
 ### Manual Configuration (Optional)
@@ -221,8 +221,8 @@ Check that:
 To modify the plugin:
 
 1. Edit files in this directory
-2. Uninstall the old version: `/plugin uninstall share-sessions`
-3. Reinstall: `/plugin install ./`
+2. Uninstall the old version: `/plugin uninstall share`
+3. Reinstall: `/plugin install share@claude-code-share-plugin`
 4. Test your changes
 
 ## How It Works
