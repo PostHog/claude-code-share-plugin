@@ -168,7 +168,6 @@ I'll help you investigate the authentication issue. Let me first check the relev
   ]
 }
 ```
-```
 
 </details>
 
