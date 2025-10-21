@@ -14,11 +14,31 @@ from pathlib import Path
 from typing import Optional
 
 
+def get_github_username() -> str:
+    """Get GitHub username from gh CLI."""
+    try:
+        result = subprocess.run(
+            ["gh", "api", "user", "--jq", ".login"],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return ""
+
+
 def get_config() -> dict:
     """Get configuration from environment variables."""
+    username = os.environ.get("CLAUDE_SHARE_USERNAME", "")
+
+    # Auto-detect username from gh CLI if not set
+    if not username:
+        username = get_github_username()
+
     return {
         "repo": os.environ.get("CLAUDE_SHARE_REPO", ""),
-        "username": os.environ.get("CLAUDE_SHARE_USERNAME", ""),
+        "username": username,
         "branch": os.environ.get("CLAUDE_SHARE_BRANCH", "main"),
         "base_path": os.environ.get("CLAUDE_SHARE_BASE_PATH", "sessions"),
     }

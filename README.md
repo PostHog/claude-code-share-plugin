@@ -21,14 +21,14 @@ A Claude Code plugin that saves and shares your coding sessions to GitHub reposi
 
 ### Quick Install (Recommended)
 
-**Option A: One-liner with config (no shell profile editing needed)**
+**Option A: One-liner (no shell profile editing needed)**
 
 ```bash
-CLAUDE_SHARE_REPO=your-username/sessions CLAUDE_SHARE_USERNAME=your-username \
+CLAUDE_SHARE_REPO=your-username/sessions \
 curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash
 ```
 
-Replace `your-username/sessions` and `your-username` with your values. The plugin installs and works immediately!
+Replace `your-username/sessions` with your repo. Your GitHub username is auto-detected from `gh` CLI!
 
 **Option B: Interactive installation**
 
@@ -77,7 +77,7 @@ If you didn't use the quick installer, add these to your shell profile (`~/.zshr
 # Required: Target repository (format: owner/repo-name)
 export CLAUDE_SHARE_REPO="your-username/your-sessions-repo"
 
-# Required: Your GitHub username (used for organizing sessions)
+# Optional: Your GitHub username (auto-detected from gh CLI if not set)
 export CLAUDE_SHARE_USERNAME="your-github-username"
 
 # Optional: Branch to push to (default: main)

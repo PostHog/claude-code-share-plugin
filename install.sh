@@ -39,14 +39,23 @@ fi
 echo "✅ Claude CLI found"
 echo ""
 
+# Get GitHub username from gh CLI if not set
+if [[ -z "$CLAUDE_SHARE_USERNAME" ]]; then
+    GH_USERNAME=$(gh api user --jq .login 2>/dev/null)
+    if [[ -n "$GH_USERNAME" ]]; then
+        export CLAUDE_SHARE_USERNAME="$GH_USERNAME"
+        echo "✅ Detected GitHub username: $GH_USERNAME"
+    fi
+fi
+
 # Check if config is already set via environment variables
-if [[ -z "$CLAUDE_SHARE_REPO" ]] || [[ -z "$CLAUDE_SHARE_USERNAME" ]]; then
+if [[ -z "$CLAUDE_SHARE_REPO" ]]; then
+    echo ""
     echo "📝 Configuration needed"
     echo ""
-    echo "💡 Tip: You can set these before running the installer:"
-    echo "  CLAUDE_SHARE_REPO=user/repo CLAUDE_SHARE_USERNAME=bob curl ... | bash"
+    echo "💡 Tip: You can set this before running the installer:"
+    echo "  CLAUDE_SHARE_REPO=user/repo curl ... | bash"
     echo ""
-    read -p "Enter your GitHub username: " GITHUB_USERNAME
     read -p "Enter repository for sessions (format: owner/repo): " SESSIONS_REPO
     read -p "Enter branch name [main]: " BRANCH_NAME
     BRANCH_NAME=${BRANCH_NAME:-main}
@@ -54,7 +63,6 @@ if [[ -z "$CLAUDE_SHARE_REPO" ]] || [[ -z "$CLAUDE_SHARE_USERNAME" ]]; then
     BASE_PATH=${BASE_PATH:-sessions}
 
     export CLAUDE_SHARE_REPO="$SESSIONS_REPO"
-    export CLAUDE_SHARE_USERNAME="$GITHUB_USERNAME"
     export CLAUDE_SHARE_BRANCH="$BRANCH_NAME"
     export CLAUDE_SHARE_BASE_PATH="$BASE_PATH"
 
@@ -62,13 +70,13 @@ if [[ -z "$CLAUDE_SHARE_REPO" ]] || [[ -z "$CLAUDE_SHARE_USERNAME" ]]; then
     echo "📋 To use the plugin, add these to your shell profile (~/.zshrc, ~/.bashrc):"
     echo ""
     echo "  export CLAUDE_SHARE_REPO=\"$SESSIONS_REPO\""
-    echo "  export CLAUDE_SHARE_USERNAME=\"$GITHUB_USERNAME\""
+    echo "  export CLAUDE_SHARE_USERNAME=\"$CLAUDE_SHARE_USERNAME\""
     echo "  export CLAUDE_SHARE_BRANCH=\"$BRANCH_NAME\""
     echo "  export CLAUDE_SHARE_BASE_PATH=\"$BASE_PATH\""
     echo ""
     read -p "Press Enter to continue with plugin installation..."
 else
-    echo "✅ Configuration found in environment variables"
+    echo "✅ Configuration found"
     echo "   Repo: $CLAUDE_SHARE_REPO"
     echo "   Username: $CLAUDE_SHARE_USERNAME"
     # Set defaults if not provided
