@@ -17,10 +17,9 @@ Thank you for your interest in contributing! This document provides guidelines f
    /plugin install share-sessions@claude-code-share-plugin
    ```
 
-3. Set up environment variables for testing:
+3. Set up environment variable for testing:
    ```bash
    export CLAUDE_SHARE_REPO="test-owner/test-repo"
-   export CLAUDE_SHARE_USERNAME="test-user"
    ```
 
 ## Making Changes

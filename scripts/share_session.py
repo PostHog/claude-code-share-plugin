@@ -174,8 +174,8 @@ def push_to_github(markdown_content: str, description: Optional[str], config: di
         return False
     
     if not username:
-        print("Error: CLAUDE_SHARE_USERNAME environment variable not set")
-        print("Example: export CLAUDE_SHARE_USERNAME='your-github-username'")
+        print("Error: Could not detect GitHub username")
+        print("Make sure gh CLI is installed and authenticated: gh auth login")
         return False
     
     # Create filename

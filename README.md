@@ -127,8 +127,8 @@ Sessions are organized as:
 
 ```
 your-sessions-repo/
-└── sessions/           # Configurable via CLAUDE_SHARE_BASE_PATH
-    └── username/       # Your CLAUDE_SHARE_USERNAME
+└── sessions/
+    └── username/       # Auto-detected from gh CLI
         ├── 20251021-142530-fixing-auth.md
         ├── 20251021-153245-adding-tests.md
         └── ...
@@ -168,14 +168,14 @@ I'll help you investigate the authentication issue. Let me first check the relev
 ...
 ```
 
-## Configuration Options
+## Configuration
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `CLAUDE_SHARE_REPO` | ✅ | - | Target repo (format: `owner/repo`) |
-| `CLAUDE_SHARE_USERNAME` | ✅ | - | Your GitHub username |
-| `CLAUDE_SHARE_BRANCH` | ❌ | `main` | Branch to commit to |
-| `CLAUDE_SHARE_BASE_PATH` | ❌ | `sessions` | Base directory in repo |
+| What | How |
+|------|-----|
+| **Required** | `export CLAUDE_SHARE_REPO=owner/repo` |
+| **Auto-detected** | Username (from `gh` CLI) |
+| **Auto-detected** | Session log (most recent in `~/.claude/sessions/`) |
+| **Defaults** | Branch: `main`, Path: `sessions` |
 
 ## Troubleshooting
 
