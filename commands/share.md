@@ -21,5 +21,5 @@ Share the current Claude Code session to a GitHub repository as markdown.
 Run the Python script to convert the session and push to GitHub:
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT}/scripts/share_session.py $ARGUMENTS
+python3 ./scripts/share_session.py $ARGUMENTS
 ```
