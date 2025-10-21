@@ -51,37 +51,30 @@ fi
 # Check if config is already set via environment variables
 if [[ -z "$CLAUDE_SHARE_REPO" ]]; then
     echo ""
-    echo "📝 Configuration needed"
+    echo "❌ Error: CLAUDE_SHARE_REPO not set"
     echo ""
-    echo "💡 Tip: You can set this before running the installer:"
-    echo "  CLAUDE_SHARE_REPO=user/repo curl ... | bash"
+    echo "Please run the installer with:"
+    echo "  CLAUDE_SHARE_REPO=owner/repo curl -fsSL https://... | bash"
     echo ""
-    read -p "Enter repository for sessions (format: owner/repo): " SESSIONS_REPO
-    read -p "Enter branch name [main]: " BRANCH_NAME
-    BRANCH_NAME=${BRANCH_NAME:-main}
-    read -p "Enter base path in repo [sessions]: " BASE_PATH
-    BASE_PATH=${BASE_PATH:-sessions}
-
-    export CLAUDE_SHARE_REPO="$SESSIONS_REPO"
-    export CLAUDE_SHARE_BRANCH="$BRANCH_NAME"
-    export CLAUDE_SHARE_BASE_PATH="$BASE_PATH"
-
-    echo ""
-    echo "📋 To use the plugin, add these to your shell profile (~/.zshrc, ~/.bashrc):"
-    echo ""
-    echo "  export CLAUDE_SHARE_REPO=\"$SESSIONS_REPO\""
-    echo "  export CLAUDE_SHARE_USERNAME=\"$CLAUDE_SHARE_USERNAME\""
-    echo "  export CLAUDE_SHARE_BRANCH=\"$BRANCH_NAME\""
-    echo "  export CLAUDE_SHARE_BASE_PATH=\"$BASE_PATH\""
-    echo ""
-    read -p "Press Enter to continue with plugin installation..."
+    echo "Example:"
+    echo "  CLAUDE_SHARE_REPO=myuser/sessions curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash"
+    exit 1
 else
     echo "✅ Configuration found"
     echo "   Repo: $CLAUDE_SHARE_REPO"
     echo "   Username: $CLAUDE_SHARE_USERNAME"
+    echo ""
     # Set defaults if not provided
     export CLAUDE_SHARE_BRANCH="${CLAUDE_SHARE_BRANCH:-main}"
     export CLAUDE_SHARE_BASE_PATH="${CLAUDE_SHARE_BASE_PATH:-sessions}"
+
+    echo "📋 Add these to your shell profile (~/.zshrc, ~/.bashrc) to persist:"
+    echo ""
+    echo "  export CLAUDE_SHARE_REPO=\"$CLAUDE_SHARE_REPO\""
+    echo "  export CLAUDE_SHARE_USERNAME=\"$CLAUDE_SHARE_USERNAME\""
+    echo "  export CLAUDE_SHARE_BRANCH=\"$CLAUDE_SHARE_BRANCH\""
+    echo "  export CLAUDE_SHARE_BASE_PATH=\"$CLAUDE_SHARE_BASE_PATH\""
+    echo ""
 fi
 
 # Install plugin using Claude CLI
@@ -118,15 +111,6 @@ echo "🎉 Installation complete!"
 echo ""
 echo "💡 Your sessions will be saved to: $CLAUDE_SHARE_REPO/$CLAUDE_SHARE_BASE_PATH/$CLAUDE_SHARE_USERNAME/"
 echo ""
-if [[ -z "$SESSIONS_REPO" ]]; then
-    # Config was provided via env vars
-    echo "🚀 Test with: /share"
-else
-    # Config was prompted - remind to add to shell
-    echo "⚠️  IMPORTANT: Add the environment variables shown above to your shell profile"
-    echo "   Then reload: source ~/.zshrc (or ~/.bashrc)"
-    echo ""
-    echo "🚀 After reloading your shell, test with: /share"
-fi
+echo "🚀 Start Claude Code and test with: /share"
 echo ""
 echo "📚 Documentation: https://github.com/PostHog/claude-code-share-plugin"
