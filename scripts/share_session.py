@@ -170,7 +170,7 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
 
                     if isinstance(content, str):
                         markdown_lines.extend([
-                            "## 🤖 Assistant",
+                            "## ▐▛███▜▌ Claude",
                             "",
                             content,
                             "",
@@ -178,12 +178,12 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                     elif isinstance(content, list):
                         has_text = False
                         tool_calls = []
-                        
+
                         for item in content:
                             if isinstance(item, dict):
                                 if item.get('type') == 'text':
                                     if not has_text:
-                                        markdown_lines.extend(["## 🤖 Assistant", ""])
+                                        markdown_lines.extend(["## ▐▛███▜▌ Claude", ""])
                                         has_text = True
                                     markdown_lines.extend([
                                         item.get('text', ''),
