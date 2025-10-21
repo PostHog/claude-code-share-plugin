@@ -1,8 +1,13 @@
 #!/bin/bash
 # One-liner installer for Claude Code Share Plugin
-# Usage: curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s owner/repo
 
 set -e
+
+# Get repo from first argument if provided
+if [[ -n "$1" ]]; then
+    export CLAUDE_SHARE_REPO="$1"
+fi
 
 echo "🚀 Installing Claude Code Share Plugin..."
 echo ""
@@ -50,16 +55,33 @@ fi
 
 # Check if config is already set via environment variables
 if [[ -z "$CLAUDE_SHARE_REPO" ]]; then
-    echo ""
-    echo "❌ Error: CLAUDE_SHARE_REPO not set"
-    echo ""
-    echo "Please run the installer with:"
-    echo "  CLAUDE_SHARE_REPO=owner/repo curl -fsSL https://... | bash"
-    echo ""
-    echo "Example:"
-    echo "  CLAUDE_SHARE_REPO=myuser/sessions curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash"
-    exit 1
-else
+    # Check if we can prompt (stdin is a terminal)
+    if [[ -t 0 ]]; then
+        echo "📝 Configuration needed"
+        echo ""
+        read -p "Enter repository for sessions (format: owner/repo): " CLAUDE_SHARE_REPO
+        echo ""
+
+        if [[ -z "$CLAUDE_SHARE_REPO" ]]; then
+            echo "❌ Error: Repository is required"
+            exit 1
+        fi
+
+        export CLAUDE_SHARE_REPO
+    else
+        echo ""
+        echo "❌ Error: CLAUDE_SHARE_REPO not set"
+        echo ""
+        echo "Please run the installer with your repository as an argument:"
+        echo "  curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s owner/repo"
+        echo ""
+        echo "Example:"
+        echo "  curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s myuser/sessions"
+        exit 1
+    fi
+fi
+
+if [[ -n "$CLAUDE_SHARE_REPO" ]]; then
     echo "✅ Configuration found"
     echo "   Repo: $CLAUDE_SHARE_REPO"
     echo "   Username: $CLAUDE_SHARE_USERNAME"
