@@ -28,19 +28,35 @@ def get_github_username() -> str:
         return ""
 
 
-def get_config() -> dict:
-    """Get configuration from environment variables."""
-    username = os.environ.get("CLAUDE_SHARE_USERNAME", "")
+def find_latest_session_log() -> Optional[str]:
+    """Find the most recent Claude Code session log."""
+    # Look for session logs in Claude directory
+    claude_dir = Path.home() / ".claude" / "sessions"
+    if not claude_dir.exists():
+        return None
 
-    # Auto-detect username from gh CLI if not set
+    # Find the most recently modified .jsonl file
+    jsonl_files = list(claude_dir.glob("**/*.jsonl"))
+    if not jsonl_files:
+        return None
+
+    # Sort by modification time, newest first
+    jsonl_files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    return str(jsonl_files[0])
+
+
+def get_config() -> dict:
+    """Get configuration with auto-detection and defaults."""
+    # Auto-detect username from gh CLI
+    username = get_github_username()
     if not username:
-        username = get_github_username()
+        username = "unknown-user"
 
     return {
         "repo": os.environ.get("CLAUDE_SHARE_REPO", ""),
         "username": username,
-        "branch": os.environ.get("CLAUDE_SHARE_BRANCH", "main"),
-        "base_path": os.environ.get("CLAUDE_SHARE_BASE_PATH", "sessions"),
+        "branch": "main",
+        "base_path": "sessions",
     }
 
 
@@ -229,27 +245,32 @@ def main():
     """Main entry point for share command."""
     # Get description from command arguments
     description = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else None
-    
-    # Get session log path from environment
-    session_log = os.environ.get("CLAUDE_SESSION_LOG")
+
+    # Find the latest session log
+    session_log = find_latest_session_log()
     if not session_log:
-        print("Error: CLAUDE_SESSION_LOG environment variable not set")
+        print("Error: Could not find Claude Code session log")
+        print("Expected location: ~/.claude/sessions/**/*.jsonl")
         return 1
-    
-    if not os.path.exists(session_log):
-        print(f"Error: Session log not found at {session_log}")
-        return 1
-    
+
+    print(f"📄 Found session: {Path(session_log).name}")
+    print()
+
     # Get configuration
     config = get_config()
-    
+
+    if not config["repo"]:
+        print("Error: CLAUDE_SHARE_REPO not set")
+        print("Set it with: export CLAUDE_SHARE_REPO=owner/repo")
+        return 1
+
     # Convert JSONL to markdown
     print("Converting session to markdown...")
     markdown_content = convert_jsonl_to_markdown(session_log)
-    
+
     # Push to GitHub
     success = push_to_github(markdown_content, description, config)
-    
+
     return 0 if success else 1
 
 

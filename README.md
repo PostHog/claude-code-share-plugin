@@ -27,18 +27,15 @@ A Claude Code plugin that saves and shares your coding sessions to GitHub reposi
 curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- --claude-share-repo your-username/sessions
 ```
 
-Replace `your-username/sessions` with your sessions repository. Your GitHub username is auto-detected from `gh` CLI!
+Replace `your-username/sessions` with your sessions repository.
 
-**Alternative (download first):**
-```bash
-curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh -o /tmp/claude-share-install.sh && bash /tmp/claude-share-install.sh --claude-share-repo your-username/sessions
-```
+**What gets auto-detected:**
+- ✅ GitHub username (from `gh` CLI)
+- ✅ Current session log (most recent in `~/.claude/sessions/`)
+- ✅ Branch (defaults to `main`)
+- ✅ Path (defaults to `sessions`)
 
-**What it does:**
-- Checks prerequisites (`gh` CLI and `claude` CLI)
-- Auto-detects your GitHub username
-- Installs the plugin marketplace and plugin
-- Shows env vars to add to your shell profile for persistence
+**Only one required config:** `export CLAUDE_SHARE_REPO=owner/repo`
 
 ### Manual Installation
 
@@ -68,27 +65,19 @@ In Claude Code:
 
 ### Configure environment variables (if not using Quick Install)
 
-If you didn't use the quick installer, add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+Add this to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
 
 ```bash
-# Required: Target repository (format: owner/repo-name)
 export CLAUDE_SHARE_REPO="your-username/your-sessions-repo"
-
-# Optional: Your GitHub username (auto-detected from gh CLI if not set)
-export CLAUDE_SHARE_USERNAME="your-github-username"
-
-# Optional: Branch to push to (default: main)
-export CLAUDE_SHARE_BRANCH="main"
-
-# Optional: Base path in repo (default: sessions)
-export CLAUDE_SHARE_BASE_PATH="sessions"
 ```
 
-Reload your shell:
+Then reload your shell:
 
 ```bash
 source ~/.zshrc  # or ~/.bashrc
 ```
+
+Everything else is auto-detected!
 
 ### Team/Project Configuration (Optional)
 

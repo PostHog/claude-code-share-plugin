@@ -114,18 +114,12 @@ fi
 if [[ -n "$CLAUDE_SHARE_REPO" ]]; then
     echo "✅ Configuration found"
     echo "   Repo: $CLAUDE_SHARE_REPO"
-    echo "   Username: $CLAUDE_SHARE_USERNAME"
+    echo "   Username: $CLAUDE_SHARE_USERNAME (auto-detected)"
     echo ""
-    # Set defaults if not provided
-    export CLAUDE_SHARE_BRANCH="${CLAUDE_SHARE_BRANCH:-main}"
-    export CLAUDE_SHARE_BASE_PATH="${CLAUDE_SHARE_BASE_PATH:-sessions}"
 
-    echo "📋 Add these to your shell profile (~/.zshrc, ~/.bashrc) to persist:"
+    echo "📋 Add this to your shell profile (~/.zshrc, ~/.bashrc) to persist:"
     echo ""
     echo "  export CLAUDE_SHARE_REPO=\"$CLAUDE_SHARE_REPO\""
-    echo "  export CLAUDE_SHARE_USERNAME=\"$CLAUDE_SHARE_USERNAME\""
-    echo "  export CLAUDE_SHARE_BRANCH=\"$CLAUDE_SHARE_BRANCH\""
-    echo "  export CLAUDE_SHARE_BASE_PATH=\"$CLAUDE_SHARE_BASE_PATH\""
     echo ""
 fi
 
@@ -172,7 +166,7 @@ fi
 echo ""
 echo "🎉 Installation complete!"
 echo ""
-echo "💡 Your sessions will be saved to: $CLAUDE_SHARE_REPO/$CLAUDE_SHARE_BASE_PATH/$CLAUDE_SHARE_USERNAME/"
+echo "💡 Your sessions will be saved to: $CLAUDE_SHARE_REPO/sessions/$CLAUDE_SHARE_USERNAME/"
 echo ""
 echo "🚀 Start Claude Code and test with: /share"
 echo ""
