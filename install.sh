@@ -40,7 +40,6 @@ while [[ $# -gt 0 ]]; do
 done
 
 echo "🚀 Installing Claude Code Share Plugin..."
-echo ""
 
 # Check if gh CLI is installed
 if ! command -v gh &> /dev/null; then
@@ -57,7 +56,6 @@ if ! gh auth status &> /dev/null; then
 fi
 
 echo "✅ GitHub CLI is installed and authenticated"
-echo ""
 
 # Check if Claude CLI is available
 if ! command -v claude &> /dev/null; then
@@ -72,7 +70,6 @@ if ! command -v claude &> /dev/null; then
 fi
 
 echo "✅ Claude CLI found"
-echo ""
 
 # Get GitHub username from gh CLI if not set
 if [[ -z "$CLAUDE_SHARE_USERNAME" ]]; then
@@ -126,13 +123,10 @@ if [[ -n "$CLAUDE_SHARE_REPO" ]]; then
 }
 EOF
     echo "✅ Configuration saved"
-    echo ""
 fi
 
 # Install plugin using Claude CLI
-echo ""
 echo "🔌 Installing plugin via Claude CLI..."
-echo ""
 
 # Uninstall old versions if they exist
 echo "Checking for existing installations..."
@@ -158,8 +152,6 @@ else
     fi
 fi
 
-echo ""
-
 # Install plugin
 echo "Installing share plugin..."
 if claude plugin install share@claude-code-share-plugin 2>&1; then
@@ -169,11 +161,7 @@ else
     exit 1
 fi
 
-echo ""
 echo "🎉 Installation complete!"
-echo ""
 echo "💡 Your sessions will be saved to: $CLAUDE_SHARE_REPO/sessions/$CLAUDE_SHARE_USERNAME/"
-echo ""
 echo "🚀 Start Claude Code and test with: /share"
-echo ""
 echo "📚 Documentation: https://github.com/PostHog/claude-code-share-plugin"
