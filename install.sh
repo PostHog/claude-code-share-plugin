@@ -12,35 +12,16 @@ while [[ $# -gt 0 ]]; do
             export CLAUDE_SHARE_REPO="$2"
             shift 2
             ;;
-        --claude-share-username)
-            export CLAUDE_SHARE_USERNAME="$2"
-            shift 2
-            ;;
-        --claude-share-branch)
-            export CLAUDE_SHARE_BRANCH="$2"
-            shift 2
-            ;;
-        --claude-share-base-path)
-            export CLAUDE_SHARE_BASE_PATH="$2"
-            shift 2
-            ;;
         --help|-h)
             echo "Claude Code Share Plugin Installer"
             echo ""
             echo "Usage:"
             echo "  bash install.sh --claude-share-repo owner/repo"
-            echo "  bash install.sh owner/repo"
             echo ""
-            echo "Options:"
-            echo "  --claude-share-repo REPO       Repository for sessions (required)"
-            echo "  --claude-share-username USER   GitHub username (auto-detected if not set)"
-            echo "  --claude-share-branch BRANCH   Branch to push to (default: main)"
-            echo "  --claude-share-base-path PATH  Base path in repo (default: sessions)"
-            echo "  --help, -h                     Show this help message"
+            echo "Example:"
+            echo "  bash install.sh --claude-share-repo posthog/claude-sessions"
             echo ""
-            echo "Examples:"
-            echo "  bash install.sh --claude-share-repo myuser/sessions"
-            echo "  bash install.sh posthog/claude-sessions"
+            echo "Your GitHub username will be auto-detected from gh CLI"
             exit 0
             ;;
         -*)
