@@ -8,6 +8,6 @@
     }
   },
   "enabledPlugins": [
-    "share-sessions@claude-code-share-plugin"
+    "share@claude-code-share-plugin"
   ]
 }

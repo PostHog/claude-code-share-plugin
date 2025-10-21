@@ -1,5 +1,5 @@
 {
-  "name": "share-sessions",
+  "name": "share",
   "description": "Share Claude Code sessions to GitHub repositories",
   "version": "1.0.0",
   "author": {

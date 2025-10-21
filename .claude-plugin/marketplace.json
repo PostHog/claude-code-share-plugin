@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "share-sessions",
+      "name": "share",
       "source": "./",
       "description": "Share Claude Code sessions to GitHub repositories as markdown",
       "version": "1.0.0",

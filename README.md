@@ -48,7 +48,7 @@ In Claude Code, run:
 
 ```
 /plugin marketplace add PostHog/claude-code-share-plugin
-/plugin install share-sessions@claude-code-share-plugin
+/plugin install share@claude-code-share-plugin
 ```
 
 #### Option 2: Install locally
@@ -105,7 +105,7 @@ For automatic plugin installation across your team, add to your project's `.clau
     }
   },
   "enabledPlugins": [
-    "share-sessions@claude-code-share-plugin"
+    "share@claude-code-share-plugin"
   ]
 }
 ```
