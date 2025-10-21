@@ -137,7 +137,8 @@ def convert_jsonl_to_markdown(jsonl_path: str, description: Optional[str] = None
                         'share:share is running' in content or
                         'Share Session Command' in content or
                         'Execute this command to share the session' in content or
-                        'share_session.py' in content
+                        'share_session.py' in content or
+                        '~/.claude/plugins/marketplaces/claude-code-share-plugin' in content
                     ):
                         continue
                     if isinstance(content, list):
@@ -196,9 +197,13 @@ def convert_jsonl_to_markdown(jsonl_path: str, description: Optional[str] = None
                                         'input': item.get('input', {})
                                     })
                         
-                        # Add tool calls in collapsed sections
+                        # Add tool calls in collapsed sections (skip share-related tools)
                         if tool_calls:
                             for tool in tool_calls:
+                                # Skip tool calls that execute the share script
+                                tool_input_str = json.dumps(tool['input'])
+                                if 'share_session.py' in tool_input_str or 'claude-code-share-plugin' in tool_input_str:
+                                    continue
                                 markdown_lines.append(format_tool_call(tool['name'], tool['input']))
                                 markdown_lines.append("")
             
