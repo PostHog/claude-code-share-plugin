@@ -1,5 +1,6 @@
 ---
 description: Share the current Claude Code session to GitHub as markdown
+argument-hint: [optional description]
 allowed-tools: Bash(find ~/.claude/plugins -name "share_session.py":*), Bash(python3 * share_session.py:*)
 ---
 
