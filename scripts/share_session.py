@@ -62,8 +62,23 @@ def get_config() -> dict:
     if not username:
         username = "unknown-user"
 
+    # Try to read from config file first, then fall back to env var
+    repo = ""
+    config_file = Path.home() / ".claude" / "share-plugin-config.json"
+    if config_file.exists():
+        try:
+            with open(config_file, 'r') as f:
+                saved_config = json.load(f)
+                repo = saved_config.get("repo", "")
+        except (json.JSONDecodeError, IOError):
+            pass
+
+    # Fall back to environment variable if not in config file
+    if not repo:
+        repo = os.environ.get("CLAUDE_SHARE_REPO", "")
+
     return {
-        "repo": os.environ.get("CLAUDE_SHARE_REPO", ""),
+        "repo": repo,
         "username": username,
         "branch": "main",
         "base_path": "sessions",
@@ -270,8 +285,13 @@ def main():
     config = get_config()
 
     if not config["repo"]:
-        print("Error: CLAUDE_SHARE_REPO not set")
-        print("Set it with: export CLAUDE_SHARE_REPO=owner/repo")
+        print("Error: Repository not configured")
+        print("")
+        print("Run the installer to configure:")
+        print("  curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- owner/repo")
+        print("")
+        print("Or set manually:")
+        print("  export CLAUDE_SHARE_REPO=owner/repo")
         return 1
 
     # Convert JSONL to markdown

@@ -35,7 +35,7 @@ Replace `your-username/sessions` with your sessions repository.
 - ✅ Branch (defaults to `main`)
 - ✅ Path (defaults to `sessions`)
 
-**Only one required config:** `export CLAUDE_SHARE_REPO=owner/repo`
+**Configuration is saved automatically** to `~/.claude/share-plugin-config.json` during installation - no environment variables needed!
 
 ### Manual Installation
 
@@ -63,21 +63,25 @@ In Claude Code:
 /plugin install share-sessions@claude-code-share-plugin
 ```
 
-### Configure environment variables (if not using Quick Install)
+### Manual Configuration (Optional)
 
-Add this to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+The Quick Install automatically saves configuration to `~/.claude/share-plugin-config.json`.
 
-```bash
-export CLAUDE_SHARE_REPO="your-username/your-sessions-repo"
-```
+If you need to change the repository later, you can either:
 
-Then reload your shell:
-
-```bash
-source ~/.zshrc  # or ~/.bashrc
-```
-
-Everything else is auto-detected!
+1. **Re-run the installer** with a new repo
+2. **Edit the config file** directly:
+   ```bash
+   cat > ~/.claude/share-plugin-config.json <<EOF
+   {
+     "repo": "new-owner/new-repo"
+   }
+   EOF
+   ```
+3. **Use environment variable** (takes precedence over config file):
+   ```bash
+   export CLAUDE_SHARE_REPO="your-username/your-sessions-repo"
+   ```
 
 ### Team/Project Configuration (Optional)
 
@@ -172,16 +176,30 @@ I'll help you investigate the authentication issue. Let me first check the relev
 
 | What | How |
 |------|-----|
-| **Required** | `export CLAUDE_SHARE_REPO=owner/repo` |
+| **Configured during install** | Repository saved to `~/.claude/share-plugin-config.json` |
 | **Auto-detected** | Username (from `gh` CLI) |
 | **Auto-detected** | Session log (from `~/.claude/projects/` based on working directory) |
 | **Defaults** | Branch: `main`, Path: `sessions` |
 
 ## Troubleshooting
 
-### "Error: CLAUDE_SHARE_REPO environment variable not set"
+### "Error: Repository not configured"
 
-Make sure you've exported the required environment variables and reloaded your shell.
+The plugin needs to know which GitHub repository to use. Run the installer:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- your-username/your-repo
+```
+
+Or create the config file manually:
+
+```bash
+cat > ~/.claude/share-plugin-config.json <<EOF
+{
+  "repo": "your-username/your-repo"
+}
+EOF
+```
 
 ### "Error cloning repository"
 

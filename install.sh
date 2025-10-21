@@ -117,9 +117,15 @@ if [[ -n "$CLAUDE_SHARE_REPO" ]]; then
     echo "   Username: $CLAUDE_SHARE_USERNAME (auto-detected)"
     echo ""
 
-    echo "📋 Add this to your shell profile (~/.zshrc, ~/.bashrc) to persist:"
-    echo ""
-    echo "  export CLAUDE_SHARE_REPO=\"$CLAUDE_SHARE_REPO\""
+    # Write config to file
+    echo "💾 Saving configuration to ~/.claude/share-plugin-config.json"
+    mkdir -p ~/.claude
+    cat > ~/.claude/share-plugin-config.json <<EOF
+{
+  "repo": "$CLAUDE_SHARE_REPO"
+}
+EOF
+    echo "✅ Configuration saved"
     echo ""
 fi
 
