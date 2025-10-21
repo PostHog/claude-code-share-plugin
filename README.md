@@ -21,36 +21,19 @@ A Claude Code plugin that saves and shares your coding sessions to GitHub reposi
 
 ### Quick Install (Recommended)
 
-**Option A: One-liner (no shell profile editing needed)**
+**One-liner installation:**
 
 ```bash
 wget -O /tmp/claude-share-install.sh https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh && bash /tmp/claude-share-install.sh --claude-share-repo your-username/sessions
 ```
 
-Or with positional argument:
-```bash
-wget -O /tmp/claude-share-install.sh https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh && bash /tmp/claude-share-install.sh your-username/sessions
-```
+Replace `your-username/sessions` with your sessions repository. Your GitHub username is auto-detected from `gh` CLI!
 
-Or with curl:
-```bash
-curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- --claude-share-repo your-username/sessions
-```
-
-Replace `your-username/sessions` with your repo. Your GitHub username is auto-detected from `gh` CLI!
-
-**Option B: Interactive installation**
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash
-```
-
-The installer will prompt for configuration and show you the env vars to add to your shell profile.
-
-Both options will:
-- Check prerequisites (`gh` CLI and `claude` CLI)
-- Install the plugin via Claude CLI
-- Set up configuration
+**What it does:**
+- Checks prerequisites (`gh` CLI and `claude` CLI)
+- Auto-detects your GitHub username
+- Installs the plugin marketplace and plugin
+- Shows env vars to add to your shell profile for persistence
 
 ### Manual Installation
 
