@@ -143,24 +143,20 @@ if claude plugin uninstall share 2>&1 | grep -q "Successfully uninstalled"; then
     echo "✅ Removed existing share plugin"
 fi
 
-# Add marketplace
-echo "Adding marketplace..."
-if claude plugin marketplace add PostHog/claude-code-share-plugin 2>&1; then
-    echo "✅ Marketplace added"
+# Check if marketplace already exists
+if claude plugin marketplace list 2>&1 | grep -q "claude-code-share-plugin"; then
+    echo "Marketplace already exists, updating..."
+    claude plugin marketplace update claude-code-share-plugin 2>&1 > /dev/null
+    echo "✅ Marketplace updated"
 else
-    # Check if it's already added (non-fatal)
-    if claude plugin marketplace list 2>&1 | grep -q "claude-code-share-plugin"; then
-        echo "✅ Marketplace already added"
+    echo "Adding marketplace..."
+    if claude plugin marketplace add PostHog/claude-code-share-plugin 2>&1; then
+        echo "✅ Marketplace added"
     else
         echo "❌ Failed to add marketplace"
         exit 1
     fi
 fi
-
-# Update marketplace to get latest
-echo "Updating marketplace..."
-claude plugin marketplace update claude-code-share-plugin 2>&1 > /dev/null
-echo "✅ Marketplace updated"
 
 echo ""
 
