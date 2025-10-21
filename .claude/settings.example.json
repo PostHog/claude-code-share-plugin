@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-code-share-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "PostHog/claude-code-share-plugin"
+      }
+    }
+  },
+  "enabledPlugins": [
+    "share-sessions@claude-code-share-plugin"
+  ]
+}

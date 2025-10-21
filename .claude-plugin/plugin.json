@@ -1,0 +1,9 @@
+{
+  "name": "share-sessions",
+  "description": "Share Claude Code sessions to GitHub repositories",
+  "version": "1.0.0",
+  "author": {
+    "name": "PostHog",
+    "email": "hey@posthog.com"
+  }
+}

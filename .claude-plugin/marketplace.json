@@ -1,0 +1,28 @@
+{
+  "name": "claude-code-share-plugin",
+  "owner": {
+    "name": "PostHog",
+    "email": "hey@posthog.com"
+  },
+  "metadata": {
+    "description": "Plugin marketplace for sharing Claude Code sessions to GitHub",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "share-sessions",
+      "source": ".",
+      "description": "Share Claude Code sessions to GitHub repositories as markdown",
+      "version": "1.0.0",
+      "author": {
+        "name": "PostHog",
+        "email": "hey@posthog.com"
+      },
+      "license": "MIT",
+      "keywords": ["github", "sharing", "sessions", "markdown", "documentation"],
+      "category": "productivity",
+      "tags": ["github", "git", "sharing", "export"],
+      "strict": true
+    }
+  ]
+}
