@@ -134,6 +134,15 @@ echo ""
 echo "🔌 Installing plugin via Claude CLI..."
 echo ""
 
+# Uninstall old versions if they exist
+echo "Checking for existing installations..."
+if claude plugin uninstall share-sessions 2>&1 | grep -q "Successfully uninstalled"; then
+    echo "✅ Removed old share-sessions plugin"
+fi
+if claude plugin uninstall share 2>&1 | grep -q "Successfully uninstalled"; then
+    echo "✅ Removed existing share plugin"
+fi
+
 # Add marketplace
 echo "Adding marketplace..."
 if claude plugin marketplace add PostHog/claude-code-share-plugin 2>&1; then
@@ -148,14 +157,20 @@ else
     fi
 fi
 
+# Update marketplace to get latest
+echo "Updating marketplace..."
+claude plugin marketplace update claude-code-share-plugin 2>&1 > /dev/null
+echo "✅ Marketplace updated"
+
 echo ""
 
 # Install plugin
-echo "Installing share-sessions plugin..."
-if claude plugin install share-sessions@claude-code-share-plugin 2>&1; then
+echo "Installing share plugin..."
+if claude plugin install share@claude-code-share-plugin 2>&1; then
     echo "✅ Plugin installed successfully!"
 else
-    echo "⚠️  Plugin may already be installed"
+    echo "❌ Failed to install plugin"
+    exit 1
 fi
 
 echo ""
