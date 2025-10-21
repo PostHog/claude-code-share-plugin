@@ -73,14 +73,52 @@ fi
 source "$SHELL_PROFILE"
 
 echo ""
-echo "✅ Installation complete!"
+echo "✅ Environment configuration complete!"
+echo ""
+
+# Check if Claude CLI is available
+if ! command -v claude &> /dev/null; then
+    echo "⚠️  Claude CLI not found in PATH"
+    echo ""
+    echo "Next steps:"
+    echo "1. Open a new terminal or run: source $SHELL_PROFILE"
+    echo "2. Start Claude Code and run:"
+    echo "   /plugin marketplace add PostHog/claude-code-share-plugin"
+    echo "   /plugin install share-sessions@claude-code-share-plugin"
+    echo ""
+    echo "3. Test with: /share"
+    echo ""
+    echo "📚 Documentation: https://github.com/PostHog/claude-code-share-plugin"
+    exit 0
+fi
+
+# Install plugin using Claude CLI
+echo "🔌 Installing plugin via Claude CLI..."
+echo ""
+
+# Add marketplace
+echo "Adding marketplace..."
+if claude plugin marketplace add PostHog/claude-code-share-plugin 2>&1 | tee /tmp/claude-plugin-install.log; then
+    echo "✅ Marketplace added"
+else
+    echo "⚠️  Marketplace may already be added (this is OK)"
+fi
+
+echo ""
+
+# Install plugin
+echo "Installing share-sessions plugin..."
+if claude plugin install share-sessions@claude-code-share-plugin 2>&1 | tee -a /tmp/claude-plugin-install.log; then
+    echo "✅ Plugin installed successfully!"
+else
+    echo "⚠️  Plugin may already be installed (this is OK)"
+fi
+
+echo ""
+echo "🎉 Installation complete!"
 echo ""
 echo "Next steps:"
 echo "1. Open a new terminal or run: source $SHELL_PROFILE"
-echo "2. Start Claude Code and run:"
-echo "   /plugin marketplace add PostHog/claude-code-share-plugin"
-echo "   /plugin install share-sessions@claude-code-share-plugin"
-echo ""
-echo "3. Test with: /share"
+echo "2. Start Claude Code and test with: /share"
 echo ""
 echo "📚 Documentation: https://github.com/PostHog/claude-code-share-plugin"
