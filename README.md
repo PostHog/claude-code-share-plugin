@@ -31,7 +31,7 @@ Replace `your-username/sessions` with your sessions repository.
 
 **What gets auto-detected:**
 - ✅ GitHub username (from `gh` CLI)
-- ✅ Current session log (most recent in `~/.claude/sessions/`)
+- ✅ Current session log (from `~/.claude/projects/` based on working directory)
 - ✅ Branch (defaults to `main`)
 - ✅ Path (defaults to `sessions`)
 
@@ -174,7 +174,7 @@ I'll help you investigate the authentication issue. Let me first check the relev
 |------|-----|
 | **Required** | `export CLAUDE_SHARE_REPO=owner/repo` |
 | **Auto-detected** | Username (from `gh` CLI) |
-| **Auto-detected** | Session log (most recent in `~/.claude/sessions/`) |
+| **Auto-detected** | Session log (from `~/.claude/projects/` based on working directory) |
 | **Defaults** | Branch: `main`, Path: `sessions` |
 
 ## Troubleshooting

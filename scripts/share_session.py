@@ -30,13 +30,23 @@ def get_github_username() -> str:
 
 def find_latest_session_log() -> Optional[str]:
     """Find the most recent Claude Code session log."""
-    # Look for session logs in Claude directory
-    claude_dir = Path.home() / ".claude" / "sessions"
-    if not claude_dir.exists():
-        return None
+    # Convert current working directory to Claude project directory name
+    # e.g., /Users/foo/project -> -Users-foo-project
+    cwd = Path.cwd()
+    project_dir_name = str(cwd).replace("/", "-")
 
-    # Find the most recently modified .jsonl file
-    jsonl_files = list(claude_dir.glob("**/*.jsonl"))
+    # Look for session logs in Claude project directory
+    claude_project_dir = Path.home() / ".claude" / "projects" / project_dir_name
+    if not claude_project_dir.exists():
+        # Fallback: search all projects for most recent session
+        claude_projects_dir = Path.home() / ".claude" / "projects"
+        if not claude_projects_dir.exists():
+            return None
+        jsonl_files = list(claude_projects_dir.glob("**/*.jsonl"))
+    else:
+        # Find JSONL files in this project's directory
+        jsonl_files = list(claude_project_dir.glob("*.jsonl"))
+
     if not jsonl_files:
         return None
 
@@ -250,7 +260,7 @@ def main():
     session_log = find_latest_session_log()
     if not session_log:
         print("Error: Could not find Claude Code session log")
-        print("Expected location: ~/.claude/sessions/**/*.jsonl")
+        print("Expected location: ~/.claude/projects/**/*.jsonl")
         return 1
 
     print(f"📄 Found session: {Path(session_log).name}")
