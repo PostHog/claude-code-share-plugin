@@ -46,7 +46,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-printf "%b\n" "${BLUE}» Installing Claude Code Share Plugin...${NC}"
+printf "%b\n" "${BLUE}▶ Installing Claude Code Share Plugin...${NC}"
 # Check if gh CLI is installed
 if ! command -v gh &> /dev/null; then
     printf "%b\n" "${RED}✗ Error: GitHub CLI (gh) is not installed.${NC}"
@@ -113,7 +113,7 @@ if [[ -n "$CLAUDE_SHARE_REPO" ]]; then
     printf "%b\n" "${GRAY}  Repo: $CLAUDE_SHARE_REPO${NC}"
     printf "%b\n" "${GRAY}  Username: $CLAUDE_SHARE_USERNAME (auto-detected)${NC}"
     # Write config to file
-    printf "%b\n" "${BLUE}» Saving configuration to ~/.claude/share-plugin-config.json${NC}"
+    printf "%b\n" "${BLUE}▶ Saving configuration to ~/.claude/share-plugin-config.json${NC}"
     mkdir -p ~/.claude
     cat > ~/.claude/share-plugin-config.json <<EOF
 {
@@ -123,10 +123,10 @@ EOF
     printf "%b\n" "${GREEN}✓ Configuration saved${NC}"
 fi
 # Install plugin using Claude CLI
-printf "%b\n" "${BLUE}» Installing plugin via Claude CLI...${NC}"
+printf "%b\n" "${BLUE}▶ Installing plugin via Claude CLI...${NC}"
 
 # Uninstall old versions if they exist
-printf "%b\n" "${BLUE}» Checking for existing installations...${NC}"
+printf "%b\n" "${BLUE}▶ Checking for existing installations...${NC}"
 if claude plugin uninstall share-sessions 2>&1 | grep -q "Successfully uninstalled"; then
     printf "%b\n" "${GREEN}✓ Removed old share-sessions plugin${NC}"
 fi
