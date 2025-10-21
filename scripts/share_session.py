@@ -123,10 +123,12 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                 
             try:
                 entry = json.loads(line)
-                role = entry.get('role', '')
-                
+                # Session logs have message nested inside
+                message = entry.get('message', {})
+                role = message.get('role', '')
+
                 if role == 'user':
-                    content = entry.get('content', '')
+                    content = message.get('content', '')
                     if isinstance(content, list):
                         # Handle multipart content
                         for item in content:
@@ -146,7 +148,7 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                         ])
                 
                 elif role == 'assistant':
-                    content = entry.get('content', [])
+                    content = message.get('content', [])
                     if isinstance(content, str):
                         markdown_lines.extend([
                             "## 🤖 Assistant",
