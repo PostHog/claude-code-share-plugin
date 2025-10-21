@@ -144,14 +144,14 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                         for item in content:
                             if isinstance(item, dict) and item.get('type') == 'text':
                                 markdown_lines.extend([
-                                    "## 👤 User",
+                                    "## User",
                                     "",
                                     item.get('text', ''),
                                     "",
                                 ])
                     else:
                         markdown_lines.extend([
-                            "## 👤 User",
+                            "## User",
                             "",
                             content,
                             "",
@@ -170,7 +170,7 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
 
                     if isinstance(content, str):
                         markdown_lines.extend([
-                            "## ▐▛███▜▌ Claude",
+                            "## Claude",
                             "",
                             content,
                             "",
@@ -183,7 +183,7 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                             if isinstance(item, dict):
                                 if item.get('type') == 'text':
                                     if not has_text:
-                                        markdown_lines.extend(["## ▐▛███▜▌ Claude", ""])
+                                        markdown_lines.extend(["## Claude", ""])
                                         has_text = True
                                     markdown_lines.extend([
                                         item.get('text', ''),
