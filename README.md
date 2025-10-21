@@ -250,7 +250,3 @@ To modify the plugin:
 ## License
 
 MIT
-
-## Credits
-
-Inspired by the PostHog team's internal `/share` command ([PR #39723](https://github.com/PostHog/posthog/pull/39723)).
