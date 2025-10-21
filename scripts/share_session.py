@@ -105,10 +105,11 @@ def format_tool_call(tool_name: str, tool_input: dict) -> str:
 </details>"""
 
 
-def convert_jsonl_to_markdown(jsonl_path: str) -> str:
+def convert_jsonl_to_markdown(jsonl_path: str, description: Optional[str] = None) -> str:
     """Convert JSONL session log to markdown format."""
+    title = description if description else "Claude Code Session"
     markdown_lines = [
-        "# Claude Code Session",
+        f"# {title}",
         "",
         f"**Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         "",
@@ -317,7 +318,7 @@ def main():
 
     # Convert JSONL to markdown
     print("Converting session to markdown...")
-    markdown_content = convert_jsonl_to_markdown(session_log)
+    markdown_content = convert_jsonl_to_markdown(session_log, description)
 
     # Push to GitHub
     success = push_to_github(markdown_content, description, config)
