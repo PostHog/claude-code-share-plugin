@@ -5,20 +5,12 @@
 
 set -e
 
-# Colors
-if [ -t 1 ]; then
-    GREEN='\033[0;32m'
-    RED='\033[0;31m'
-    BLUE='\033[0;34m'
-    GRAY='\033[0;90m'
-    NC='\033[0m'
-else
-    GREEN=''
-    RED=''
-    BLUE=''
-    GRAY=''
-    NC=''
-fi
+# Colors - always enabled for better visual feedback
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GRAY='\033[0;90m'
+NC='\033[0m'
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
