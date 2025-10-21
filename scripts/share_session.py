@@ -134,7 +134,9 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                     if isinstance(content, str) and (
                         content.startswith('/share') or
                         'share:share is running' in content or
-                        'Share Session Command' in content
+                        'Share Session Command' in content or
+                        'Execute this command to share the session' in content or
+                        'share_session.py' in content
                     ):
                         continue
                     if isinstance(content, list):
@@ -161,7 +163,8 @@ def convert_jsonl_to_markdown(jsonl_path: str) -> str:
                     # Skip assistant responses about the share command
                     if isinstance(content, str) and (
                         'share the current Claude Code session' in content.lower() or
-                        'share script' in content.lower()
+                        'share script' in content.lower() or
+                        'execute the share command' in content.lower()
                     ):
                         continue
 
