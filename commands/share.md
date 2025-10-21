@@ -21,5 +21,5 @@ Share the current Claude Code session to a GitHub repository as markdown.
 Find and execute the share script:
 
 ```bash
-python3 $(find ~/.claude/plugins -name "share_session.py" -path "*/claude-code-share-plugin/*" 2>/dev/null | head -1) $ARGUMENTS
+find ~/.claude/plugins -name "share_session.py" -path "*/claude-code-share-plugin/*" 2>/dev/null | head -1 | xargs -I {} python3 {} $ARGUMENTS
 ```
