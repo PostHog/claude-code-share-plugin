@@ -81,7 +81,7 @@ If you need to change the repository later, you can either:
    ```
 3. **Use environment variable** (takes precedence over config file):
    ```bash
-   export CLAUDE_SHARE_REPO="your-username/your-sessions-repo"
+   export CLAUDE_SHARE_REPO="repo-owner/repo-name"
    ```
 
 ### Team/Project Configuration (Optional)
@@ -189,7 +189,8 @@ I'll help you investigate the authentication issue. Let me first check the relev
 The plugin needs to know which GitHub repository to use. Run the installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- your-username/your-repo
+curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | \
+  bash -s -- repo-owner/repo-name
 ```
 
 Or create the config file manually:
@@ -197,7 +198,7 @@ Or create the config file manually:
 ```bash
 cat > ~/.claude/share-plugin-config.json <<EOF
 {
-  "repo": "your-username/your-repo"
+  "repo": "repo-owner/repo-name"
 }
 EOF
 ```
