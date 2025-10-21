@@ -24,7 +24,8 @@ A Claude Code plugin that saves and shares your coding sessions to GitHub reposi
 **One-liner installation:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | bash -s -- --claude-share-repo your-username/sessions
+curl -fsSL https://raw.githubusercontent.com/PostHog/claude-code-share-plugin/main/install.sh | \
+  bash -s -- --claude-share-repo your-username/sessions
 ```
 
 Replace `your-username/sessions` with your sessions repository.
