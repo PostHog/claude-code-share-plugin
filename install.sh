@@ -26,7 +26,7 @@ while [[ $# -gt 0 ]]; do
             echo "  bash install.sh --claude-share-repo owner/repo"
             echo ""
             echo "Example:"
-            echo "  bash install.sh --claude-share-repo posthog/claude-sessions"
+            echo "  bash install.sh --claude-share-repo PostHog/agent-sessions"
             echo ""
             echo "Your GitHub username will be auto-detected from gh CLI"
             exit 0
@@ -153,6 +153,6 @@ else
     exit 1
 fi
 printf "%b\n" "${GREEN}✓ Installation complete${NC}"
-printf "%b\n" "${GRAY}  Sessions will be saved to: $CLAUDE_SHARE_REPO/sessions/$CLAUDE_SHARE_USERNAME/${NC}"
+printf "%b\n" "${GRAY}  Sessions will be saved to: $CLAUDE_SHARE_REPO/sessions/claude/$CLAUDE_SHARE_USERNAME/${NC}"
 printf "%b\n" "${GRAY}  Test with: /share${NC}"
 printf "%b\n" "${GRAY}  Documentation: https://github.com/PostHog/claude-code-share-plugin${NC}"

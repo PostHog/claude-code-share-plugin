@@ -81,7 +81,7 @@ def get_config() -> dict:
         "repo": repo,
         "username": username,
         "branch": "main",
-        "base_path": "sessions",
+        "base_path": "sessions/claude",
     }
 
 

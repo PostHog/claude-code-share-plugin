@@ -28,7 +28,7 @@ The plugin follows the standard Claude Code plugin architecture:
 **Configuration System** (`get_config()` in scripts/share_session.py:58-86):
 - Priority: `~/.claude/share-plugin-config.json` → `CLAUDE_SHARE_REPO` env var
 - Auto-detects GitHub username via `gh api user --jq .login`
-- Returns config dict with: repo, username, branch (defaults to "main"), base_path (defaults to "sessions")
+- Returns config dict with: repo, username, branch (defaults to "main"), base_path (defaults to "sessions/claude")
 
 **JSONL to Markdown Conversion** (`convert_jsonl_to_markdown()` in scripts/share_session.py:108-213):
 - Parses JSONL entries where each line has `{message: {role, content}}`

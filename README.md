@@ -34,7 +34,7 @@ Replace `repo-owner/repo-name` with your sessions repository.
 - GitHub username (from `gh` CLI)
 - Current session log (from `~/.claude/projects/` based on working directory)
 - Branch (defaults to `main`)
-- Path (defaults to `sessions`)
+- Path (defaults to `sessions/claude`)
 
 **Configuration is saved automatically** to `~/.claude/share-plugin-config.json` during installation - no environment variables needed!
 
@@ -133,10 +133,11 @@ Sessions are organized as:
 ```
 your-sessions-repo/
 └── sessions/
-    └── username/       # Auto-detected from gh CLI
-        ├── 20251021-142530-fixing-auth.md
-        ├── 20251021-153245-adding-tests.md
-        └── ...
+    └── claude/
+        └── username/       # Auto-detected from gh CLI
+            ├── 20251021-142530-fixing-auth.md
+            ├── 20251021-153245-adding-tests.md
+            └── ...
 ```
 
 ### Example markdown output
